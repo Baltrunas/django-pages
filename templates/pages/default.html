@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='b-page'>
+	<h1 class='b-page__header'>{{ page.header }}</h1>
+	<div class='b-page__intro'>{{ page.intro }}</div>
+	<ul>
+		{% for child in page.all_childs %}
+			<li><a href='{{ child.get_absolute_url }}'>{{ child.header }}</a></li>
+		{% endfor %}
+	</ul>
+
+
+
+	<pre>
+	sub_pages
+	all_depth_sub_pages
+	pagination
+
+	1
+	1-2
+	2-x
+
+	get_pages[1]
+	get_pages[1:2]
+	get_pages[2:]
+
+	self.childs
+
+	self.all_childs
+	
+	</pre>
+
+
+	<div>{{ page.text }}</div>
+	{% if page.img %}
+		<img src='{{ page.img.url }}' alt='{{ page.title }}'>
+	{% endif %}
+</div>
+
+	<!-- render all blocks -->
+	{% for block_item in blocks %}
+		{% include 'lp/block.html' %}
+	{% endfor %}
+
+{% endblock %}
