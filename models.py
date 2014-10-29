@@ -53,29 +53,22 @@ class Page(models.Model):
 	created_at = models.DateTimeField(verbose_name=_('Created At'), auto_now_add=True)
 	updated_at = models.DateTimeField(verbose_name=_('Updated At'), auto_now=True)
 
-	# def get_childs(self):
-	# 	childs = []
-
-	# 	for category in Category.objects.filter(public=True, parent=self.id):
-	# 		for category_id in category.get_all():
-	# 			childs.append(category_id)
-
-	# 	return childs
-
-	# def get_all(self):
-	# 	return [self.id] + self.get_childs()
-
 	def all_childs(self):
 		childs = []
-		print self
 		for child in self.childs.all():
 			childs.append(child)
 			childs += child.all_childs()
 
 		return childs
 
-	def get_absolute_url(self):
-		return self.url
+	def sub_tags(self):
+		tags = []
+		for page in self.childs.all():
+			for tag in page.tags.all():
+				tags.append(tag)
+
+		tags = Tag.objects.filter(pk__in=[tag.id for tag in tags])
+		return tags
 
 	def get_level(self):
 		if settings.APPEND_SLASH:
@@ -85,11 +78,6 @@ class Page(models.Model):
 
 		level = self.url.count('/') - minus_slash
 		return level
-
-	def __unicode__(self):
-		padding = self.level * 4
-		display = '&nbsp;' * padding + self.title
-		return SafeUnicode(display)
 
 	def resort(self, parent, i):
 		if parent:
@@ -127,9 +115,16 @@ class Page(models.Model):
 		if sort:
 			self.resort(0, 0)
 
+	def __unicode__(self):
+		padding = self.level * 4
+		display = '&nbsp;' * padding + self.title
+		return SafeUnicode(display)
+
+	def get_absolute_url(self):
+		return self.url
+
 	class Meta:
-		ordering = ['real_order']
-		# ordering = ['level', 'order']
+		ordering = ['real_order', '-created_at']
 		verbose_name = _('Page')
 		verbose_name_plural = _('Pages')
 

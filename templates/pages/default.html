@@ -1,46 +1,47 @@
 {% extends 'base.html' %}
 
+{% load render %}
+
 {% block content %}
+
 <div class='b-page'>
 	<h1 class='b-page__header'>{{ page.header }}</h1>
 	<div class='b-page__intro'>{{ page.intro }}</div>
-	<ul>
-		{% for child in page.all_childs %}
-			<li><a href='{{ child.get_absolute_url }}'>{{ child.header }}</a></li>
-		{% endfor %}
-	</ul>
 
-
-
-	<pre>
-	sub_pages
-	all_depth_sub_pages
-	pagination
-
-	1
-	1-2
-	2-x
-
-	get_pages[1]
-	get_pages[1:2]
-	get_pages[2:]
-
-	self.childs
-
-	self.all_childs
-	
-	</pre>
-
-
-	<div>{{ page.text }}</div>
 	{% if page.img %}
-		<img src='{{ page.img.url }}' alt='{{ page.title }}'>
+		<img src='{{ page.img.url }}' alt='{{ page.title }}' class='b-page__img'>
 	{% endif %}
-</div>
 
-	<!-- render all blocks -->
-	{% for block_item in blocks %}
-		{% include 'lp/block.html' %}
+
+	{% for item in page.all_childs %}
+	<div class='b-page__child'>
+		<a class='b-page__child__title' href='{{ item.get_absolute_url }}'>{{ item.header }}</a>
+		<div class='b-page__child__intro'>{{ item.intro|safe }}</div>
+	</div>
 	{% endfor %}
+
+	<div class='b-page__text'>{% render page.text %}</div>
+
+	{% comment %}
+		direct_sub_pages
+		all_depth_sub_pages
+		last_sub_pages
+
+		subpages[level]
+		subpages[1] (direct_sub_pages)
+		subpages[start_level:end_level]
+		subpages[start_level:last_level]
+		subpages[1:last] (all_depth_sub_pages)
+		subpages[:last] (all_depth_sub_pages)
+
+		pagination
+	{% endcomment %}
+
+</div><!-- b-page -->
+
+<!-- render all blocks -->
+{% for block_item in blocks %}
+	{% include 'lp/block.html' %}
+{% endfor %}
 
 {% endblock %}

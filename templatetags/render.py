@@ -13,14 +13,15 @@ class RenderNode(template.Node):
 			self.content = template.resolve_variable(self.content, context)
 			return template.Template(self.content).render(template.Context(context, autoescape=False))
 		except template.TemplateSyntaxError, e:
-			return mark_safe('<strong>Template error: There is an error one of this page's template tags: <code>%s</code></strong>' % e.message)
+			return mark_safe("<strong>Template error: There is an error one of this page's template tags: <code>%s</code></strong>" % e.message)
 
 
 @register.tag(name='render')
 def render(parser, token):
 	'''
-	Example: {% render flatpage.content %}
+	Example: {% render content %}
 	'''
 	content = token.split_contents()[-1]
 	return RenderNode(content)
+
 render.is_safe = True

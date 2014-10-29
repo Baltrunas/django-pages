@@ -12,6 +12,7 @@ If you want to use multilanguage you must instal ```django-modeltranslation```, 
 # To Do
 * New templates
 * Custom templates
+* Translate image field?
 
 * New views
 * New **news** urls
