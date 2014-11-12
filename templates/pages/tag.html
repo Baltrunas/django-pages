@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class='b-tag'>
+	<h1 class='b-tag__header'>{{ tag.name }}</h1>
+
+	{% for page in pages_list %}
+	<div class='b-page__child'>
+		<a class='b-page__child__title' href='{{ page.get_absolute_url }}'>{{ page.header }}</a>
+		<div class='b-page__child__intro'>{{ page.intro|safe }}</div>
+	</div>
+	{% endfor %}
+
+</div><!-- b-tag -->
+
+{% endblock %}

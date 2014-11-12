@@ -127,15 +127,3 @@ class Page(models.Model):
 		ordering = ['real_order', '-created_at']
 		verbose_name = _('Page')
 		verbose_name_plural = _('Pages')
-
-	# def get_next(self):
-	# 	next = Page.objects.filter(id__gt=self.id, category=self.category, public=True)
-	# 	if next:
-	# 		return next[0]
-	# 	return False
-
-	# def get_prev(self):
-	# 	prev = Page.objects.filter(id__lt=self.id, category=self.category, public=True)
-	# 	if prev:
-	# 		return prev[0]
-	# 	return False

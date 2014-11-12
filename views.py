@@ -1,16 +1,24 @@
 # -*- coding: utf-8 -*
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import Http404
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+# from django.http import Http404
+# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from pages.models import Tag
 from pages.models import Page
 
 
 def tag(request, slug):
-	return render('pages/tag.html', context)
+	context = {}
+	host = request.META.get('HTTP_HOST')
+	tag = get_object_or_404(Tag, slug=slug)
+	context['tag'] = tag
+	context['title'] = tag.name
+
+	context['pages_list'] = Page.objects.filter(public=True, tags__slug__in=[slug], sites__domain__in=[host])
+
+	return render(request, 'pages/tag.html', context)
 
 
 def page(request, url):
@@ -45,4 +53,4 @@ def page(request, url):
 	else:
 		template = 'pages/default.html'
 
-	return render(template, context)
+	return render(request, template, context)
