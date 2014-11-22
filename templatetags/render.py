@@ -12,7 +12,7 @@ class RenderNode(template.Node):
 		try:
 			self.content = template.resolve_variable(self.content, context)
 			return template.Template(self.content).render(template.Context(context, autoescape=False))
-		except template.TemplateSyntaxError, e:
+		except template.TemplateSyntaxError as e:
 			return mark_safe("<strong>Template error: There is an error one of this page's template tags: <code>%s</code></strong>" % e.message)
 
 
