@@ -22,26 +22,8 @@
 
 	<div class='b-page__text'>{% render page.text %}</div>
 
-	{% comment %}
-		direct_sub_pages
-		all_depth_sub_pages
-		last_sub_pages
-
-		subpages[level]
-		subpages[1] (direct_sub_pages)
-		subpages[start_level:end_level]
-		subpages[start_level:last_level]
-		subpages[1:last] (all_depth_sub_pages)
-		subpages[:last] (all_depth_sub_pages)
-
-		pagination
-	{% endcomment %}
+	{% include "pages/__blocks/paginator.html" %}
 
 </div><!-- b-page -->
-
-<!-- render all blocks -->
-{% for block_item in blocks %}
-	{% include 'lp/block.html' %}
-{% endfor %}
 
 {% endblock %}

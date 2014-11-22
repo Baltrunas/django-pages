@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from pages.models import Tag
-from pages.models import Page
+from .models import Tag
+from .models import Page
 
 
 class TagAdmin(admin.ModelAdmin):

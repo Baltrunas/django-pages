@@ -54,11 +54,22 @@ class Page(models.Model):
 
 	def all_childs(self):
 		childs = []
-		for child in self.childs.all():
+		for child in self.childs.filter(public=True):
 			childs.append(child)
 			childs += child.all_childs()
 
 		return childs
+
+
+	def subpages(self, start=1, end=0, not_last=False):
+		pass
+		# [level]
+		# [1]							direct_sub_pages
+		# [start_level:end_level]
+		# [1:last]						all_depth_sub_pages
+		# [:last]						last_sub_pages
+		# []							not_last_pages
+
 
 	def sub_tags(self):
 		tags = []
