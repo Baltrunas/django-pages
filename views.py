@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404
 # from django.http import Http404
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from pages.models import Tag
-from pages.models import Page
+from .models import Tag
+from .models import Page
 
 
 def tag(request, slug):

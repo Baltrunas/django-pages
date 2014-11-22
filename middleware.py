@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 from django.http import Http404
 from django.conf import settings
-from pages.views import page
+from .views import page
 
 
 class PageMiddleware(object):
