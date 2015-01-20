@@ -11,7 +11,7 @@ class PageMiddleware(object):
 			return page(request, request.path_info)
 		except Http404:
 			return response
-		except:
+		except Exception:
 			if settings.DEBUG:
 				raise
 			return response

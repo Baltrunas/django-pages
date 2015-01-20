@@ -10,6 +10,7 @@ Pages, categories, tags for django.
 If you want to use multilanguage you must instal ```django-modeltranslation```, define LANGUAGES in settings and use 'middleware.SwitchLocaleMiddleware', to change languages.
 
 # To Do
+* Check flatpages view!
 * New templates
 * Custom templates
 * Translate image field?

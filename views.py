@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.contrib.sites.shortcuts import get_current_site
 
+from django.views.decorators.csrf import csrf_protect
 # from django.http import Http404
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -10,22 +12,25 @@ from .models import Page
 
 def tag(request, slug):
 	context = {}
-	host = request.META.get('HTTP_HOST')
+	site_id = get_current_site(request).id
+
 	tag = get_object_or_404(Tag, slug=slug)
 	context['tag'] = tag
 	context['title'] = tag.name
 
-	context['pages_list'] = Page.objects.filter(public=True, tags__slug__in=[slug], sites__domain__in=[host])
+	context['pages_list'] = Page.objects.filter(public=True, tags__slug__in=[slug], sites__in=[site_id])
 
 	return render(request, 'pages/tag.html', context)
 
 
+@csrf_protect
 def page(request, url):
 	context = {}
 
 	# Page
-	host = request.META.get('HTTP_HOST')
-	page = get_object_or_404(Page, url=url, sites__domain__in=[host])
+	site_id = get_current_site(request).id
+
+	page = get_object_or_404(Page, url=url, sites__in=[site_id])
 	context['page'] = page
 	context['title'] = page.title
 	context['header'] = page.header
