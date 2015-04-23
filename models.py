@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 from django.db import models
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -52,24 +53,19 @@ class Page(models.Model):
 	created_at = models.DateTimeField(verbose_name=_('Created At'), auto_now_add=True)
 	updated_at = models.DateTimeField(verbose_name=_('Updated At'), auto_now=True)
 
+	def __init__(self, *args, **kwargs):
+		super(Page, self).__init__(*args, **kwargs)
+		self._prev_parent = self.parent
+		self._prev_level = self.level
+		self._prev_order = self.order
+
 	def all_childs(self):
 		childs = []
-		for child in self.childs.filter(public=True):
+		for child in self.childs.all():
 			childs.append(child)
 			childs += child.all_childs()
 
 		return childs
-
-
-	def subpages(self, start=1, end=0, not_last=False):
-		pass
-		# [level]
-		# [1]							direct_sub_pages
-		# [start_level:end_level]
-		# [1:last]						all_depth_sub_pages
-		# [:last]						last_sub_pages
-		# []							not_last_pages
-
 
 	def sub_tags(self):
 		tags = []
@@ -123,7 +119,8 @@ class Page(models.Model):
 		super(Page, self).save(*args, **kwargs)
 
 		if sort:
-			self.resort(0, 0)
+			if self._prev_parent != self.parent or self._prev_order != self.order or self._prev_level != self.level:
+				self.resort(0, 0)
 
 	def __unicode__(self):
 		padding = self.level * 4
