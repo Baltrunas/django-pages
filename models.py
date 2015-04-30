@@ -42,9 +42,9 @@ class Page(models.Model):
 	order = models.IntegerField(verbose_name=_('Order'), default=500, blank=True, null=True)
 	real_order = models.IntegerField(verbose_name=_('Real Order'), default=500, blank=True, null=True, editable=False)
 
-	tags = models.ManyToManyField(Tag, related_name='pages', verbose_name=_('Tags'), null=True, blank=True)
+	tags = models.ManyToManyField(Tag, related_name='pages', verbose_name=_('Tags'), blank=True)
 	# Fix: related_name
-	sites = models.ManyToManyField(Site, related_name='pagess', verbose_name=_('Sites'), null=True, blank=True)
+	sites = models.ManyToManyField(Site, related_name='pagess', verbose_name=_('Sites'), blank=True)
 	slug = models.CharField(verbose_name=_('Slug'), max_length=256, default='#')
 	url = models.CharField(verbose_name=_('URL'), max_length=1024, editable=False)
 
