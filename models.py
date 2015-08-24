@@ -134,3 +134,36 @@ class Page(models.Model):
 		ordering = ['real_order', '-created_at']
 		verbose_name = _('Page')
 		verbose_name_plural = _('Pages')
+
+
+
+def item_upload_to(instance, filename):
+	if instance.page:
+		file_folder = instance.page.url
+	else:
+		file_folder = '__other'
+
+	puth = u'img/pages/%s/%s' % (file_folder, filename)
+	return puth
+
+
+
+class Media(models.Model):
+	name = models.CharField(verbose_name=_('Name'), max_length=255)
+	page = models.ForeignKey(Page, verbose_name=_('Page'), related_name='media', null=True, blank=True)
+	media = models.FileField(verbose_name=_('File'), upload_to=item_upload_to)
+
+	description = models.TextField(verbose_name=_('Description'), blank=True)
+	order = models.PositiveSmallIntegerField(verbose_name=_('Order'), default=500, null=True, blank=True)
+
+	public = models.BooleanField(verbose_name=_('Public'), default=True)
+	created_at = models.DateTimeField(verbose_name=_('Created At'), auto_now_add=True)
+	updated_at = models.DateTimeField(verbose_name=_('Updated At'), auto_now=True)
+
+	def __unicode__(self):
+		return self.name
+
+	class Meta:
+		ordering = ['order', 'name']
+		verbose_name = _('Media')
+		verbose_name_plural = _('Media')

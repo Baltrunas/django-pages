@@ -12,6 +12,13 @@
 		<img src='{{ page.img.url }}' alt='{{ page.title }}' class='b-page__img'>
 	{% endif %}
 
+	{% if page.media %}
+		<div class='b-media'>
+			{% for media in page.media.all %}
+				<img class='b-media__img' src='{{ media.media.url }}' alt='{{ media.name }}' title='{{ media.name }}'>
+			{% endfor %}
+		</div>
+	{% endif %}
 
 	{% for item in page.all_childs %}
 	<div class='b-page__child'>
