@@ -1,6 +1,9 @@
 # django-pages
 Pages, categories, tags for django.
 
+# Requirements
+django-helpful
+
 # Install
 * Add ```'apps.pages',``` to ```INSTALLED_APPS ```
 * Add ```'apps.pages.middleware.PageMiddleware',``` to end of ```MIDDLEWARE_CLASSES```
