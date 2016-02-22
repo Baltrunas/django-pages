@@ -10,6 +10,9 @@ class Tag(models.Model):
 	name = models.CharField(verbose_name=_('Name'), max_length=128)
 	slug = models.SlugField(verbose_name=_('Slug'), max_length=128, help_text=_('A slug is the part of a URL which identifies a page using human-readable keywords'))
 
+	def pages_count(self):
+		return self.pages.filter(public=True).count()
+
 	@models.permalink
 	def get_absolute_url(self):
 		return ('pages_tag', (), {'slug': self.slug})
