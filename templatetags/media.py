@@ -1,7 +1,7 @@
 from django import template
 register = template.Library()
 
-from .models import Media
+from ..models import Media
 
 
 @register.simple_tag(takes_context=True)
