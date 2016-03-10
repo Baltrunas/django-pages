@@ -1,0 +1,30 @@
+.b-page__img {
+	width: 50%;
+}
+
+.b-page__child {
+	width: 100%;
+	height: 176px;
+	float: left;
+	overflow: hidden;
+	box-sizing: border-box;
+	padding-bottom: 25px;
+	margin-bottom: 25px;
+	border-bottom: 1px dashed #ccc;
+}
+
+.b-page__child .b-page__child__img {
+	width: 200px;
+	height: 150px;
+	float: left;
+	margin: 0 15px 0 0;
+}
+
+.b-page__child .b-page__child__date {
+	margin: 5px 0;
+}
+
+.b-page__child .b-page__child__intro {
+	height: 95px;
+	overflow: hidden;
+}

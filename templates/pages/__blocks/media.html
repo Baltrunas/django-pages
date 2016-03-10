@@ -1,0 +1,26 @@
+{% load thumbnail %}
+{% load i18n %}
+
+<div class='b-media'>
+	{% for media in media_group %}
+		<a href='{{ media.file.url }}' class='b-media-item' title='{{ media.name }}'>
+			{% if media.type == "image" %}
+				<figure class='b-media-item__figure'>
+						{% thumbnail media.file "400x300" crop="center" as im %}
+							<img src='{{ im.url }}' class='b-media-item__img' alt='{{ media.name }}' title='{{ media.name }}'>
+						{% endthumbnail %}
+						<figcaption class='b-media-item__title'>
+							{{ media.name }}
+						</figcaption>
+				</figure>
+			{% elif media.type == "video" %}
+				<video class='b-media-item__video' width='400' height='300' controls name='{{ media.name }}'>
+					<source src='{{ media.file.url }}' type='video/ogg'>
+					Пожалуйста обновите браузер.
+				</video>
+			{% elif media.type == "file" %}
+			<a href='{{ media.file.url }}'title='{{ media. }}' class='b-media-item__download'>{% trans "Download File" %}</a>
+			{% endif %}
+		</a>
+	{% endfor %}
+</div>

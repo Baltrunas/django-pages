@@ -1,33 +1,35 @@
 {% extends 'base.html' %}
 
 {% load render %}
+{% load media %}
+{% load thumbnail %}
 
 {% block content %}
 
-<div class='b-page'>
+<div class='b-page m-app_pages m-template_pages-default'>
 	<h1 class='b-page__header'>{{ page.header }}</h1>
-	<div class='b-page__intro'>{{ page.intro }}</div>
-
 	{% if page.img %}
 		<img src='{{ page.img.url }}' alt='{{ page.title }}' class='b-page__img'>
 	{% endif %}
+	<div class='b-page__intro'>{{ page.intro }}</div>
+	<div class='b-page__text'>{% render page.text %}</div>
 
-	{% if page.media %}
-		<div class='b-media'>
-			{% for media in page.media.all %}
-				<img class='b-media__img' src='{{ media.media.url }}' alt='{{ media.name }}' title='{{ media.name }}'>
-			{% endfor %}
-		</div>
-	{% endif %}
+	{% media_group "media1" %}
 
 	{% for item in page.all_childs %}
-	<div class='b-page__child'>
-		<a class='b-page__child__title' href='{{ item.get_absolute_url }}'>{{ item.header }}</a>
-		<div class='b-page__child__intro'>{{ item.intro|safe }}</div>
-	</div>
+		<div class='b-page__child'>
+			{% thumbnail item.img "300x300" crop="center" as im %}
+				<img src='{{ im.url }}' class='b-page__child__img' alt='{{ item.header }}'>
+			{% empty %}
+				<img src='/static/pages/img/no_photo.png' class='b-page__child__img' alt='{{ item.header }}' title='{{ item.header }}' />
+			{% endthumbnail %}
+			<a href='{{ item.get_absolute_url }}' class='b-page__child__title'>{{ item.header }}</a>
+			<div class='b-page__child__date'>{{ item.created_at|date:"Y.m.d H:i" }}</div>
+			<div class='b-page__child__intro'>{{ item.intro|safe }}</div>
+		</div>
 	{% endfor %}
 
-	<div class='b-page__text'>{% render page.text %}</div>
+	{% media_group "" %}
 
 	{% include "pages/__blocks/paginator.html" %}
 

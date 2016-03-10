@@ -152,11 +152,20 @@ def item_upload_to(instance, filename):
 
 
 class Media(models.Model):
-	name = models.CharField(verbose_name=_('Name'), max_length=255)
 	page = models.ForeignKey(Page, verbose_name=_('Page'), related_name='media', null=True, blank=True)
-	media = models.FileField(verbose_name=_('File'), upload_to=item_upload_to)
+
+	name = models.CharField(verbose_name=_('Name'), max_length=255)
+	group = models.CharField(verbose_name=_('Group media'), max_length=64, blank=True)
+	TYPE_CHOICES = (
+			('image', _('Image')),
+			('video', _('Video')),
+			('file', _('File')),
+		)
+	type = models.CharField(verbose_name=_('File type'), max_length=32, blank=True, default='image', choices=TYPE_CHOICES)
+	file = models.FileField(verbose_name=_('File'), upload_to=item_upload_to)
 
 	description = models.TextField(verbose_name=_('Description'), blank=True)
+
 	order = models.PositiveSmallIntegerField(verbose_name=_('Order'), default=500, null=True, blank=True)
 
 	public = models.BooleanField(verbose_name=_('Public'), default=True)
