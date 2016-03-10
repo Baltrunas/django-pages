@@ -156,6 +156,8 @@ class Media(models.Model):
 	page = models.ForeignKey(Page, verbose_name=_('Page'), related_name='media', null=True, blank=True)
 	media = models.FileField(verbose_name=_('File'), upload_to=item_upload_to)
 
+	group = models.CharField(verbose_name=_('Group media'), max_length=256, blank=True)
+
 	description = models.TextField(verbose_name=_('Description'), blank=True)
 	order = models.PositiveSmallIntegerField(verbose_name=_('Order'), default=500, null=True, blank=True)
 
