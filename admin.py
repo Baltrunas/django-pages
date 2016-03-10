@@ -14,7 +14,8 @@ admin.site.register(Tag, TagAdmin)
 
 
 class MediaAdmin(admin.ModelAdmin):
-	list_display = ['name']
+	list_display = ['name', 'page', 'order', 'public', 'created_at', 'updated_at']
+	list_filter = ['name', 'page', 'order', 'public', 'created_at', 'updated_at']
 	search_fields = ['name']
 
 admin.site.register(Media, MediaAdmin)
