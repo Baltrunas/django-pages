@@ -1,3 +1,14 @@
+.m-template_pages-default {
+	width: 70%;
+	float: left;
+}
+
+aside {
+	width: 25%;
+	padding-left: 5%;
+	float: left;
+}
+
 .b-page__intro {
 	margin: 25px 0;
 }

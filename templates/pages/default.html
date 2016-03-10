@@ -15,7 +15,9 @@
 		<img src='{{ page.img.url }}' alt='{{ page.title }}' class='b-page__img'>
 	{% endif %}
 	<div class='b-page__text'>{% render page.text|safe %}</div>
-	
+
+	{% media_group "" %}
+
 	{% for item in page.all_childs %}
 		<div class='b-page__child'>
 			{% thumbnail item.img "300x300" crop="center" as im %}
@@ -28,8 +30,6 @@
 			<div class='b-page__child__intro'>{{ item.intro|safe }}</div>
 		</div>
 	{% endfor %}
-
-	{% media_group "" %}
 
 	{% include "pages/__blocks/paginator.html" %}
 

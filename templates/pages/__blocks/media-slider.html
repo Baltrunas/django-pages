@@ -6,7 +6,7 @@
 		<a href='{{ media.file.url }}' class='b-media-item' title='{{ media.name }}'>
 			{% if media.type == "image" %}
 				<figure class='b-media-item__figure'>
-						{% thumbnail media.file "400x300" crop="center" as im %}
+						{% thumbnail media.file "840x630" crop="center" as im %}
 							<img src='{{ im.url }}' class='b-media-item__img' alt='{{ media.name }}' title='{{ media.name }}'>
 						{% endthumbnail %}
 						<figcaption class='b-media-item__title'>
