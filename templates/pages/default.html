@@ -3,19 +3,19 @@
 {% load render %}
 {% load media %}
 {% load thumbnail %}
+{% load tags %}
 
+<!-- b-page -->
 {% block content %}
 
 <div class='b-page m-app_pages m-template_pages-default'>
-	<h1 class='b-page__header'>{{ page.header }}</h1>
+	<h1 class='b-page__header'>{{ page.header|safe }}</h1>
+	<div class='b-page__intro'>{{ page.intro|safe }}</div>
 	{% if page.img %}
 		<img src='{{ page.img.url }}' alt='{{ page.title }}' class='b-page__img'>
 	{% endif %}
-	<div class='b-page__intro'>{{ page.intro }}</div>
-	<div class='b-page__text'>{% render page.text %}</div>
-
-	{% media_group "media1" %}
-
+	<div class='b-page__text'>{% render page.text|safe %}</div>
+	
 	{% for item in page.all_childs %}
 		<div class='b-page__child'>
 			{% thumbnail item.img "300x300" crop="center" as im %}
@@ -33,6 +33,26 @@
 
 	{% include "pages/__blocks/paginator.html" %}
 
-</div><!-- b-page -->
+</div>
 
 {% endblock %}
+<!-- end b-page -->
+
+<!-- Tags -->
+{% block aside %}
+	<div class="b-tags">
+		<h3 class="b-tags__title">Tags</h3>
+		{% tags as tags %}
+		<ul class='b-tags__items'>
+			{% for tag in tags %}
+				<li class='b-tag__item'>
+					<a href="{{ tag.get_absolute_url }}" class='b-tag__link'>
+						{{ tag.name }}
+					</a>
+					<i>({{ tag.pages_count }})</i>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
+<!-- end Tags -->
