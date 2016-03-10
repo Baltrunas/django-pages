@@ -158,6 +158,8 @@ class Media(models.Model):
 
 	group = models.CharField(verbose_name=_('Group media'), max_length=256, blank=True)
 
+	file_type = models.CharField(verbose_name=_('File type'), max_length=256, editable=False, blank=True)
+
 	description = models.TextField(verbose_name=_('Description'), blank=True)
 	order = models.PositiveSmallIntegerField(verbose_name=_('Order'), default=500, null=True, blank=True)
 
