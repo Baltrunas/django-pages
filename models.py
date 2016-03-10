@@ -158,7 +158,12 @@ class Media(models.Model):
 
 	group = models.CharField(verbose_name=_('Group media'), max_length=256, blank=True)
 
-	file_type = models.CharField(verbose_name=_('File type'), max_length=256, editable=False, blank=True)
+	ITEM_TYPE_CHOICES = (
+			('image', _('Image')),
+			('video', _('Video')),
+			('attached', _('Attached')),
+		)
+	file_type = models.CharField(verbose_name=_('File type'), max_length=256, blank=True, default='image', choices=ITEM_TYPE_CHOICES)
 
 	description = models.TextField(verbose_name=_('Description'), blank=True)
 	order = models.PositiveSmallIntegerField(verbose_name=_('Order'), default=500, null=True, blank=True)
