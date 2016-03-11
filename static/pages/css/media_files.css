@@ -6,12 +6,13 @@
 
 .b-media .b-media-item {
 	width: 23.433333%;
-	min-height: 187px;
+	height: 148px;
 	float: left;
 	display: block;
 	margin: 0;
 	padding: 0;
 	margin-right: 17px;
+	overflow: hidden;
 }
 
 .b-media .b-media-item:nth-of-type(4n) {
@@ -26,8 +27,62 @@
 .b-media .b-media-item__figure {
 	margin: 0;
 	padding: 0;
+	position: relative;
 }
+
+.b-media-item .b-media-item__figure:after {
+	content: " ";
+	display: block;
+	width: 100%;
+	height: 148px;
+	background: rgba(0,0,0,0.5) url(../img/zoom_ico.png) no-repeat center center;
+	background-size: 20%;
+	z-index: 1000;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	-webkit-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+
+.b-media-item:hover .b-media-item__figure:after {
+	opacity: 1;
+}
+
 
 .b-media .b-media-item__figure .b-media-item__img {
 	width: 100%;
+	-webkit-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+
+.b-media-item:hover .b-media-item__img {
+	-moz-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.b-media .b-media-item__figure .b-media-item__title {
+	width: 100%;
+	height: 22px;
+	padding-left: 8px;
+	box-sizing: border-box;
+	background: rgba(0,0,0,0.5);
+	color: #fff;
+	font-size: 11px;
+	line-height: 2.2;
+	text-decoration: none;
+	position: absolute;
+	bottom: 4px;
+	left: 0;
+	-webkit-transition: all 0.2s ease-out;
+	-o-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
+}
+
+.b-media-item:hover .b-media-item__title {
+	transform: translateX(-100%);
 }
