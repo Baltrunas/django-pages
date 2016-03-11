@@ -1,9 +1,9 @@
 {% load thumbnail %}
 {% load i18n %}
 
-<div class='b-media m-media-slider'>
+<div class='b-media-slider'>
 	{% for media in media_group %}
-		<a href='{{ media.file.url }}' class='b-media-item' title='{{ media.name }}'>
+		<div class='b-media-item'>
 			{% if media.type == "image" %}
 				<figure class='b-media-item__figure'>
 						{% thumbnail media.file "840x630" crop="center" as im %}
@@ -12,6 +12,7 @@
 						<figcaption class='b-media-item__title'>
 							{{ media.name }}
 						</figcaption>
+						<span class="b-media-item__count">{{ forloop.counter }}/{{ media_group.count }}</span>
 				</figure>
 			{% elif media.type == "video" %}
 				<video class='b-media-item__video' width='400' height='300' controls name='{{ media.name }}'>
@@ -21,6 +22,6 @@
 			{% elif media.type == "file" %}
 			<a href='{{ media.file.url }}'title='{{ media. }}' class='b-media-item__download'>{% trans "Download File" %}</a>
 			{% endif %}
-		</a>
+		</div>
 	{% endfor %}
 </div>

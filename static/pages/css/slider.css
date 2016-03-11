@@ -1,3 +1,40 @@
-.m-media-slider .b-media-item {
+.b-media-slider .b-media-item {
 	width: 100%;
+}
+
+.b-media-slider .b-media-item__figure {
+	padding: 0;
+	margin: 0;
+}
+
+.b-media-slider .b-media-item__img {
+	margin-bottom: 10px;
+}
+
+.b-media-slider .b-media-item__title {
+	float: left;
+}
+
+.b-media-slider .b-media-item__count {
+	float: right;
+}
+
+/* owl.carousel */
+
+.b-media-slider .owl-prev {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	display: block;
+	background: rgba(0,0,0,0.5) url(../img/arrow_left.png) no-repeat center;
+	background-size: 70%;
+}
+
+.b-media-slider .owl-next {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	display: block;
+	background: rgba(0,0,0,0.5) url(../img/arrow_right.png) no-repeat center;
+	background-size: 70%;
 }
