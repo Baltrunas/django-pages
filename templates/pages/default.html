@@ -46,10 +46,10 @@
 		<ul class='b-tags__items'>
 			{% for tag in tags %}
 				<li class='b-tag__item'>
-					<a href="{{ tag.get_absolute_url }}" class='b-tag__link'>
+					<a href="{{ tag.get_absolute_url }}" class='b-tag__item__link'>
 						{{ tag.name }}
 					</a>
-					<i>({{ tag.pages_count }})</i>
+					<i class="b-tag__item__count">({{ tag.pages_count }})</i>
 				</li>
 			{% endfor %}
 		</ul>
