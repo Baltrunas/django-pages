@@ -23,14 +23,16 @@ aside {
 }
 
 .b-page__child {
-	width: 100%;
-	height: 176px;
 	float: left;
 	overflow: hidden;
+
 	box-sizing: border-box;
-	padding-bottom: 25px;
+	width: 100%;
+	height: 176px;
 	margin-bottom: 25px;
-	border-bottom: 1px dashed #ccc;
+	padding-bottom: 25px;
+
+	border-bottom: 1px dashed #cccccc;
 }
 
 .b-page__child .b-page__child__img {

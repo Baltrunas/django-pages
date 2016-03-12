@@ -1,12 +1,15 @@
 {% load thumbnail %}
 {% load i18n %}
 
-<div class='b-media'>
+
+{% firstof size "400x300" as tsize %}
+
+<div class='b-media m-tsize_{{ tsize }}'>
 	{% for media in media_group %}
-		<a href='{{ media.file.url }}' class='b-media-item' title='{{ media.name }}'>
+		<a href='{{ media.file.url }}' class='b-media-item' title='{{ media.name }}' rel='{{ media.group }}'>
 			{% if media.type == "image" %}
 				<figure class='b-media-item__figure'>
-						{% thumbnail media.file "400x300" crop="center" as im %}
+						{% thumbnail media.file tsize crop="center" as im %}
 							<img src='{{ im.url }}' class='b-media-item__img' alt='{{ media.name }}' title='{{ media.name }}'>
 						{% endthumbnail %}
 						<figcaption class='b-media-item__title'>

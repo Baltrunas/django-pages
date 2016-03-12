@@ -1,12 +1,14 @@
 {% load thumbnail %}
 {% load i18n %}
 
-<div class='b-media-slider'>
+{% firstof size "800x400" as tsize %}
+
+<div class='b-media-slider m-tsize_{{ tsize }}'>
 	{% for media in media_group %}
 		<div class='b-media-item'>
 			{% if media.type == "image" %}
 				<figure class='b-media-item__figure'>
-						{% thumbnail media.file "840x630" crop="center" as im %}
+						{% thumbnail media.file tsize crop="center" as im %}
 							<img src='{{ im.url }}' class='b-media-item__img' alt='{{ media.name }}' title='{{ media.name }}'>
 						{% endthumbnail %}
 						<figcaption class='b-media-item__title'>
