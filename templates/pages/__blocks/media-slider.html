@@ -14,7 +14,7 @@
 						<figcaption class='b-media-item__title'>
 							{{ media.name }}
 						</figcaption>
-						<span class="b-media-item__count">{{ forloop.counter }}/{{ media_group.count }}</span>
+						<span class="b-media-item__count">{{ forloop.counter }} / {{ media_group.count }}</span>
 				</figure>
 			{% elif media.type == "video" %}
 				<video class='b-media-item__video' width='400' height='300' controls name='{{ media.name }}'>
