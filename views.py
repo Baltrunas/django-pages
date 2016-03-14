@@ -4,7 +4,7 @@ from django.contrib.sites.shortcuts import get_current_site
 
 from django.views.decorators.csrf import csrf_protect
 # from django.http import Http404
-# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Tag
 from .models import Page
@@ -37,19 +37,19 @@ def page(request, url):
 	context['keywords'] = page.keywords
 	context['description'] = page.description
 
-	# # Pagination
-	# pages_list = Page.objects.filter(public=True, parent=page, sites__domain__in=[host])
-	# page_number = request.GET.get('page', None)
+	# Pagination
+	pages_list = Page.objects.filter(public=True, parent=page)
+	page_number = request.GET.get('page', None)
 
-	# paginator = Paginator(pages_list, page.per_page)
-	# try:
-	# 	pages_list = paginator.page(page_number)
-	# except PageNotAnInteger:
-	# 	pages_list = paginator.page(1)
-	# except EmptyPage:
-	# 	pages_list = paginator.page(paginator.num_pages)
+	paginator = Paginator(pages_list, page.per_page)
+	try:
+		pages_list = paginator.page(page_number)
+	except PageNotAnInteger:
+		pages_list = paginator.page(1)
+	except EmptyPage:
+		pages_list = paginator.page(paginator.num_pages)
 
-	# context['pages_list'] = pages_list
+	context['pages_list'] = pages_list
 
 	# Template
 	if page.template:

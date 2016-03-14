@@ -18,9 +18,9 @@
 
 	{% media_group "" %}
 
-	{% for item in page.all_childs %}
+	{% for item in pages_list %}
 		<div class='b-page__child'>
-			{% thumbnail item.img "300x300" crop="center" as im %}
+			{% thumbnail item.img "300x250" crop="center" as im %}
 				<img src='{{ im.url }}' class='b-page__child__img' alt='{{ item.header }}'>
 			{% empty %}
 				<img src='/static/pages/img/no_photo.png' class='b-page__child__img' alt='{{ item.header }}' title='{{ item.header }}' />

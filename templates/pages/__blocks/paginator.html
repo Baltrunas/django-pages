@@ -1,7 +1,7 @@
 {% if pages_list.paginator.num_pages > 1 %}
 	<div class='b-pagination'>
 		{% if pages_list.has_previous %}
-			<a class='b-pagination__prev' href='?page={{ pages_list.previous_page_number }}' rel='prev'>&larr;</a>
+			<a class='b-pagination__prev' href='?page={{ pages_list.previous_page_number }}' rel='prev'></a>
 		{% endif %}
 
 		{% for page_number in pages_list.paginator.page_range %}
@@ -13,7 +13,7 @@
 		{% endfor %}
 
 		{% if pages_list.has_next %}
-			<a class='b-pagination__next' href='?page={{ pages_list.next_page_number }}' rel='next'>&rarr;</a>
+			<a class='b-pagination__next' href='?page={{ pages_list.next_page_number }}' rel='next'></a>
 		{% endif %}
 		{# <link rel="canonical" href="?page=view-all" /> #}
 	</div><!-- b-pagination -->
