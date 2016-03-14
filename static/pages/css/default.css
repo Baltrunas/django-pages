@@ -3,6 +3,10 @@
 	float: left;
 }
 
+.m-template_pages-default .b-page__header {
+	margin-top: 0;
+}
+
 .b-page__intro {
 	margin: 25px 0;
 }
@@ -48,7 +52,6 @@
 aside {
 	width: 25%;
 	margin-left: 5%;
-	margin-top: 22px;
 	float: left;
 }
 
