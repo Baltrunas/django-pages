@@ -3,12 +3,6 @@
 	float: left;
 }
 
-aside {
-	width: 25%;
-	padding-left: 5%;
-	float: left;
-}
-
 .b-page__intro {
 	margin: 25px 0;
 }
@@ -50,3 +44,18 @@ aside {
 	height: 95px;
 	overflow: hidden;
 }
+
+aside {
+	width: 25%;
+	margin-left: 5%;
+	float: left;
+}
+
+aside .b-tags-active {
+	box-shadow: -13px 0px 0px #000;
+	-webkit-transform: all 0.1s ease-out;
+	-ms-transform: all 0.1s ease-out;
+	-o-transform: all 0.1s ease-out;
+	transform: all 0.1s ease-out;
+}
+
