@@ -12,13 +12,12 @@ from .models import Page
 
 def tag(request, slug):
 	context = {}
-	site_id = get_current_site(request).id
 
 	tag = get_object_or_404(Tag, slug=slug)
 	context['tag'] = tag
 	context['title'] = tag.name
 
-	context['pages_list'] = Page.objects.filter(public=True, tags__slug__in=[slug], sites__in=[site_id])
+	context['pages_list'] = Page.objects.filter(public=True, tags__slug__in=[slug], sites__in=[request.site])
 
 	return render(request, 'pages/tag.html', context)
 
@@ -27,10 +26,7 @@ def tag(request, slug):
 def page(request, url):
 	context = {}
 
-	# Page
-	site_id = get_current_site(request).id
-
-	page = get_object_or_404(Page, url=url, sites__in=[site_id])
+	page = get_object_or_404(Page, url=url, sites__in=[request.site])
 	context['page'] = page
 	context['title'] = page.title
 	context['header'] = page.header
