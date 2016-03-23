@@ -8,8 +8,8 @@ django-helpful
 # Install
 * Add ```'apps.pages',``` to ```INSTALLED_APPS ```
 * Add ```'apps.pages.middleware.PageMiddleware',``` to end of ```MIDDLEWARE_CLASSES```
-* Add ```url(r'^', include('apps.pages.urls')),``` to end of urls.py 
-* python manage.py migrae pages
+* Add ```url(r'^', include('apps.pages.urls')),``` to end of urls.py
+* python manage.py migrate pages
 
 ## Notise
 If you want to use multilanguage you must instal ```django-modeltranslation```, define LANGUAGES in settings and use 'middleware.SwitchLocaleMiddleware', to change languages.
