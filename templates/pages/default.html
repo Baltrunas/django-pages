@@ -10,7 +10,9 @@
 
 <div class='b-page m-app_pages m-template_pages-default'>
 	<h1 class='b-page__header'>{{ page.header|safe }}</h1>
-	<div class='b-page__intro'>{{ page.intro|safe }}</div>
+	{% if page.intro %}
+		<div class='b-page__intro'>{{ page.intro|safe }}</div>
+	{% endif %}
 	{% if page.img %}
 		<img src='{{ page.img.url }}' alt='{{ page.title }}' class='b-page__img'>
 	{% endif %}

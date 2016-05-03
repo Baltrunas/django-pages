@@ -2,13 +2,15 @@
 Pages, categories, tags for django.
 
 # Requirements
+django-seo
 django-helpful
 
 # Install
 * Add ```'apps.pages',``` to ```INSTALLED_APPS ```
 * Add ```'apps.pages.middleware.PageMiddleware',``` to end of ```MIDDLEWARE_CLASSES```
-* Add ```url(r'^', include('apps.pages.urls')),``` to end of urls.py 
-* manage.py syncdb
+* Add ```url(r'^', include('apps.pages.urls')),``` to end of urls.py
+* python manage.py migrate pages
+
 ## Notise
 If you want to use multilanguage you must instal ```django-modeltranslation```, define LANGUAGES in settings and use 'middleware.SwitchLocaleMiddleware', to change languages.
 
@@ -18,6 +20,7 @@ If you want to use multilanguage you must instal ```django-modeltranslation```, 
 * Custom templates
 * Translate image field?
 
+# Need?
 * New views
 * New **news** urls
 	/news/some-thing-heppen/
