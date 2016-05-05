@@ -1,0 +1,18 @@
+<ul class='b-pages__categories'>
+{% for item_page in pages %}
+	{% if item_page.childs.count or inc_last %}
+		<li class='
+			b-pages__category
+			m-level__{{ level }}
+			{% if item_page == page %}
+				m-page_category__current
+			{% endif %}
+		'>
+			<a href='{{ item_page.get_absolute_url }}'>{{ item_page.title }}</a>
+			{% if item_page.childs.count %}
+				{% include "pages/category.html" with pages=item_page.childs.all level=level|add:1 %}
+			{% endif %}
+		</li>
+	{% endif %}
+{% endfor %}
+</ul>
