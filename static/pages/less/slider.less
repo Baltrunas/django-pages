@@ -35,7 +35,8 @@
 	width: 100%;
 	height: 1px;
 	position: absolute;
-	top: calc(50% - 40px);
+	top: 50%;
+	margin-top: -40px;
 	left: 0;
 }
 
@@ -56,7 +57,7 @@
 }
 
 .b-media-slider .owl-prev:hover {
-	background: rgba(0,0,0,0.9) url(../img/arrow_left.png) no-repeat center;
+	background: rgba(0,0,0,0.9) url("@{static_url}/img/arrow_left.png") no-repeat center;
 	background-size: 50%;
 }
 
@@ -69,7 +70,7 @@
 	height: 50px;
 	border-radius: 50%;
 	display: block;
-	background: rgba(0,0,0,0.5) url(../img/arrow_right.png) no-repeat center;
+	background: rgba(0,0,0,0.5) url("@{static_url}/img/arrow_right.png") no-repeat center;
 	background-size: 50%;
 	color: transparent;
 	float: right;
@@ -81,7 +82,7 @@
 }
 
 .b-media-slider .owl-next:hover {
-	background: rgba(0,0,0,0.9) url(../img/arrow_right.png) no-repeat center;
+	background: rgba(0,0,0,0.9) url("@{static_url}/img/arrow_right.png") no-repeat center;
 	background-size: 50%;
 }
 
