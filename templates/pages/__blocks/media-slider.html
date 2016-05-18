@@ -12,7 +12,8 @@
 							<img src='{{ im.url }}' class='b-media-item__img' alt='{{ media.name }}' title='{{ media.name }}'>
 						{% endthumbnail %}
 						<figcaption class='b-media-item__title'>
-							{{ media.name }}
+							<b>{{ media.name }}</b>
+							<p>{{ media.description|safe }}</p>
 						</figcaption>
 						<span class="b-media-item__count">{{ forloop.counter }} / {{ media_group.count }}</span>
 				</figure>
