@@ -5,10 +5,12 @@ from django.contrib.sites.models import Site
 from django.utils.safestring import SafeUnicode
 from django.utils.translation import ugettext_lazy as _
 
+from helpful.fields import upload_to
+
 
 class Tag(models.Model):
 	name = models.CharField(verbose_name=_('Name'), max_length=128)
-	slug = models.SlugField(verbose_name=_('Slug'), max_length=128, help_text=_('A slug is the part of a URL which identifies a page using human-readable keywords'))
+	slug = models.SlugField(verbose_name=_('Slug'), max_length=128, unique=True, help_text=_('A slug is the part of a URL which identifies a page using human-readable keywords'))
 
 	def pages_count(self):
 		return self.pages.filter(public=True).count()
@@ -35,7 +37,7 @@ class Page(models.Model):
 	intro = models.TextField(verbose_name=_('Intro'), blank=True, null=True)
 	text = models.TextField(verbose_name=_('Text'), blank=True, null=True)
 
-	img = models.FileField(verbose_name=_('Image'), upload_to='img/pages', blank=True)
+	img = models.FileField(verbose_name=_('Image'), upload_to=upload_to, blank=True)
 
 	per_page = models.IntegerField(verbose_name=_('Items per page'), help_text=_('The maximum number of items to include on a page'), default=10)
 	parent = models.ForeignKey('self', verbose_name=_('Parent'), null=True, blank=True, related_name='childs')
@@ -138,18 +140,6 @@ class Page(models.Model):
 		verbose_name_plural = _('Pages')
 
 
-
-def item_upload_to(instance, filename):
-	if instance.page:
-		file_folder = instance.page.url
-	else:
-		file_folder = '__other'
-
-	puth = u'img/pages/%s/%s' % (file_folder, filename)
-	return puth
-
-
-
 class Media(models.Model):
 	page = models.ForeignKey(Page, verbose_name=_('Page'), related_name='media', null=True, blank=True)
 
@@ -161,7 +151,7 @@ class Media(models.Model):
 			('file', _('File')),
 		)
 	type = models.CharField(verbose_name=_('File type'), max_length=32, blank=True, default='image', choices=TYPE_CHOICES)
-	file = models.FileField(verbose_name=_('File'), upload_to=item_upload_to)
+	file = models.FileField(verbose_name=_('File'), upload_to=upload_to)
 
 	description = models.TextField(verbose_name=_('Description'), blank=True)
 
@@ -170,6 +160,10 @@ class Media(models.Model):
 	public = models.BooleanField(verbose_name=_('Public'), default=True)
 	created_at = models.DateTimeField(verbose_name=_('Created At'), auto_now_add=True)
 	updated_at = models.DateTimeField(verbose_name=_('Updated At'), auto_now=True)
+
+
+	def dependent_from(self):
+		return self.page
 
 	def __unicode__(self):
 		return self.name
