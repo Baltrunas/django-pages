@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('media', models.FileField(upload_to=apps.pages.models.item_upload_to, verbose_name='File')),
+                ('media', models.FileField(upload_to=apps.pages.models.upload_to, verbose_name='File')),
                 ('description', models.TextField(blank=True, verbose_name='Description')),
                 ('order', models.PositiveSmallIntegerField(blank=True, default=500, null=True, verbose_name='Order')),
                 ('public', models.BooleanField(default=True, verbose_name='Public')),
