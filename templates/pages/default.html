@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% load render %}
-{% load media %}
 {% load thumbnail %}
 {% load tags %}
 
@@ -17,8 +16,6 @@
 		<img src='{{ page.img.url }}' alt='{{ page.title }}' class='b-page__img'>
 	{% endif %}
 	<div class='b-page__text'>{% render page.text %}</div>
-
-	{% media_group "" %}
 
 	{% for item in pages_list %}
 		<div class='b-page__child'>

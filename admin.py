@@ -1,11 +1,10 @@
 from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericTabularInline
+
+from apps.files.models import File
 
 from .models import Tag
 from .models import Page
-from .models import Media
-
-from apps.files.models import File
-from django.contrib.contenttypes.admin import GenericTabularInline
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -15,18 +14,6 @@ class TagAdmin(admin.ModelAdmin):
 
 admin.site.register(Tag, TagAdmin)
 
-
-class MediaAdmin(admin.ModelAdmin):
-	list_display = ['name', 'page', 'order', 'public', 'created_at', 'updated_at']
-	list_filter = ['name', 'page', 'type', 'group', 'order', 'public', 'created_at', 'updated_at']
-	search_fields = ['name']
-
-admin.site.register(Media, MediaAdmin)
-
-
-class MediaInline(admin.TabularInline):
-	model = Media
-	extra = 3
 
 class FileInline(GenericTabularInline):
 	model = File

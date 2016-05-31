@@ -138,37 +138,3 @@ class Page(models.Model):
 		ordering = ['real_order', '-created_at']
 		verbose_name = _('Page')
 		verbose_name_plural = _('Pages')
-
-
-class Media(models.Model):
-	page = models.ForeignKey(Page, verbose_name=_('Page'), related_name='media', null=True, blank=True)
-
-	name = models.CharField(verbose_name=_('Name'), max_length=255)
-	group = models.CharField(verbose_name=_('Group media'), max_length=64, blank=True)
-	TYPE_CHOICES = (
-			('image', _('Image')),
-			('video', _('Video')),
-			('file', _('File')),
-		)
-	type = models.CharField(verbose_name=_('File type'), max_length=32, blank=True, default='image', choices=TYPE_CHOICES)
-	file = models.FileField(verbose_name=_('File'), upload_to=upload_to)
-
-	description = models.TextField(verbose_name=_('Description'), blank=True)
-
-	order = models.PositiveSmallIntegerField(verbose_name=_('Order'), default=500, null=True, blank=True)
-
-	public = models.BooleanField(verbose_name=_('Public'), default=True)
-	created_at = models.DateTimeField(verbose_name=_('Created At'), auto_now_add=True)
-	updated_at = models.DateTimeField(verbose_name=_('Updated At'), auto_now=True)
-
-
-	def dependent_from(self):
-		return self.page
-
-	def __unicode__(self):
-		return self.name
-
-	class Meta:
-		ordering = ['order', 'name']
-		verbose_name = _('Media')
-		verbose_name_plural = _('Media')
