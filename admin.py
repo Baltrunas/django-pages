@@ -25,7 +25,7 @@ class PageAdmin(admin.ModelAdmin):
 	search_fields = ['title', 'slug', 'url', 'public', 'text']
 	list_filter = ['public', 'main', 'sites', 'parent']
 	list_editable = ['order', 'public', 'main']
-	inlines = [FileInline, MediaInline]
+	inlines = [FileInline]
 	save_as = True
 
 admin.site.register(Page, PageAdmin)
