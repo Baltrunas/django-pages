@@ -1,0 +1,35 @@
+{% load thumbnail %}
+{% load i18n %}
+
+{% firstof size "800x400" as tsize %}
+
+<div class='b-media-slider m-tsize_{{ tsize }}'>
+	{% for media in media_group %}
+		<div class='b-media-item'>
+			{% if media.type == "image" %}
+				<figure class='b-media-item__figure' itemscope itemtype='http://schema.org/ImageObject'>
+						{% thumbnail media.file tsize crop="center" as im %}
+							<img src='{{ im.url }}' class='b-media-item__img' alt='{{ media.name }}' title='{{ media.name }}' itemprop='contentUrl'>
+						{% endthumbnail %}
+						<figcaption class='b-media-item__title' itemprop='name'>
+							{{ media.name }}
+						</figcaption>
+						<div class='b-slider-nav'>
+							<span class='b-slider-nav__prev'>←</span>
+							<span class='b-slider-nav__count'>{{ forloop.counter }} / {{ media_group.count }}</span>
+							<span class='b-slider-nav__next'>→</span>
+						</div>
+						<div class='b-media-item__description' itemprop='description'>{{ media.description|safe }}</div>
+						<meta itemprop='datePublished' content='{{ media.created_at }}'>
+				</figure>
+			{% elif media.type == "video" %}
+				<video class='b-media-item__video' width='400' height='300' controls name='{{ media.name }}'>
+					<source src='{{ media.file.url }}' type='video/ogg'>
+					Пожалуйста обновите браузер.
+				</video>
+			{% elif media.type == "file" %}
+			<a href='{{ media.file.url }}'title='{{ media. }}' class='b-media-item__download'>{% trans "Download File" %}</a>
+			{% endif %}
+		</div>
+	{% endfor %}
+</div>

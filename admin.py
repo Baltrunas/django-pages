@@ -4,6 +4,9 @@ from .models import Tag
 from .models import Page
 from .models import Media
 
+from apps.files.models import File
+from django.contrib.contenttypes.admin import GenericTabularInline
+
 
 class TagAdmin(admin.ModelAdmin):
 	list_display = ['name', 'slug']
@@ -25,13 +28,17 @@ class MediaInline(admin.TabularInline):
 	model = Media
 	extra = 3
 
+class FileInline(GenericTabularInline):
+	model = File
+	extra = 3
+
 
 class PageAdmin(admin.ModelAdmin):
 	list_display = ['__unicode__', 'slug', 'url', 'order', 'public', 'main']
 	search_fields = ['title', 'slug', 'url', 'public', 'text']
 	list_filter = ['public', 'main', 'sites', 'parent']
 	list_editable = ['order', 'public', 'main']
-	inlines = [MediaInline]
+	inlines = [FileInline, MediaInline]
 	save_as = True
 
 admin.site.register(Page, PageAdmin)
