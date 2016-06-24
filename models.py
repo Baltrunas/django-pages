@@ -91,9 +91,9 @@ class Page(models.Model):
 
 	def resort(self, parent, i):
 		if parent:
-			pages = Page.objects.filter(parent=parent)
+			pages = Page.objects.filter(parent=parent).order_by('order')
 		else:
-			pages = Page.objects.filter(parent__isnull=True)
+			pages = Page.objects.filter(parent__isnull=True).order_by('order')
 
 		for page in pages:
 			i += 1
