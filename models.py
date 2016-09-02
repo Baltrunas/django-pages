@@ -138,3 +138,24 @@ class Page(models.Model):
 		ordering = ['real_order', '-created_at']
 		verbose_name = _('Page')
 		verbose_name_plural = _('Pages')
+
+
+
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.conf import settings
+
+class View(models.Model):
+	content_type = models.ForeignKey(ContentType, verbose_name=_('Content Type'))
+	object_id = models.PositiveIntegerField(_('Object ID'))
+	content_object = GenericForeignKey('content_type', 'object_id')
+
+	site = models.ForeignKey(Site, verbose_name=_('Site'), null=True, blank=True)
+	referer = models.URLField(_('URL'), max_length=4096)
+	user_agent = models.CharField(_('User agent'), max_length=4096)
+	ip =  models.GenericIPAddressField(_('Site'), protocol='both', unpack_ipv4=False)
+	url = models.URLField(_('URL'), max_length=4096)
+
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), null=True, blank=True)
+
+	datatime = models.DateTimeField(_('Date and time'), auto_now_add=True)
