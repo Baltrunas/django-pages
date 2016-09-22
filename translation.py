@@ -1,7 +1,11 @@
-from modeltranslation.translator import translator, TranslationOptions
+from modeltranslation.translator import translator
+from modeltranslation.translator import TranslationOptions
+
 
 from .models import Tag
 from .models import Page
+from .models import Block
+from .models import SubBlock
 
 
 class TagTranslationOptions(TranslationOptions):
@@ -14,3 +18,15 @@ class PageTranslationOptions(TranslationOptions):
 	fields = ['title', 'header', 'keywords', 'description', 'intro', 'text']
 
 translator.register(Page, PageTranslationOptions)
+
+
+class BlockTranslationOptions(TranslationOptions):
+	fields = ['title', 'sub_title', 'text']
+
+translator.register(Block, BlockTranslationOptions)
+
+
+class SubBlockTranslationOptions(TranslationOptions):
+	fields = ['title', 'sub_title', 'description']
+
+translator.register(SubBlock, SubBlockTranslationOptions)

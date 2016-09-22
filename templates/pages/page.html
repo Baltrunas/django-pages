@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load render %}
+
+{% block content %}
+
+	<!-- render all blocks -->
+	{% for block_item in page.blocks.all %}
+		{% if block_item.public %}
+			{% include 'pages/block.html' %}
+		{% endif %}
+	{% endfor %}
+
+{% endblock %}

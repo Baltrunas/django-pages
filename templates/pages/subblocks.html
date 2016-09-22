@@ -1,0 +1,22 @@
+{% load render %}
+
+<div class='b-subblocks'>
+{% for subblock in subblocks %}
+
+	<div class='b-subblock m-subblock_{{ subblock.id }}'>
+		{% if subblock.image %}
+			<img src='{{ subblock.image.url }}' alt='{{ subblock.title }}' class='b-subblock__img'>
+		{% endif %}
+		<div class='b-subblock__content'>
+			<h3 class='b-subblock__title'>{{ subblock.title|safe }}</h3>
+			{% if subblock.sub_title %}
+				<big class='b-subblock__sub_title'>{{ subblock.sub_title|safe }}</big>
+			{% endif %}
+			{% if subblock.description %}
+				<div class='b-subblock__description'>{% render subblock.description %}</div>
+			{% endif %}
+		</div>
+	</div><!-- b-subblock -->
+
+{% endfor %}
+</div><!-- b-subblocks -->
