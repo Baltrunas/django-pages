@@ -51,6 +51,6 @@ def page(request, url):
 	if page.template:
 		template = page.template
 	else:
-		template = 'pages/default.html'
+		template = 'pages/page.html'
 
 	return render(request, template, context)

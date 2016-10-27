@@ -30,3 +30,49 @@ If you want to use multilanguage you must instal ```django-modeltranslation```, 
 	/news/2013/
 	/news/2013/01/
 	/news/2013/01/23/
+
+
+
+
+Express Pages
+
+без карты, без социальных сетей
+
+seo
+	on-page
+	off-page
+google local
+
+web projects
+	бизнес программы
+
+support (django)
+
+portfolio (case)
+
+страница программы СТО
+
+
+
+Продукты \ Сервисы
+	Diesel UP
+
+Продвижение
+	Так и сяк
+
+Сайты
+
+Для бизнеса
+
+Разработка сайтов
+
+Разработка приложений
+
+
+Главная
+	Продвижение
+	Сайты
+	Проекты для бизнеса
+
+	Портфолио
+	Контакты

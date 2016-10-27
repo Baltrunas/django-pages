@@ -1,0 +1,60 @@
+{% load render %}
+{% spaceless %}
+	
+<section class='
+	b-block m-block__{{ block_item.slug }}
+	m-block__{{ block_item.id }}
+	{% if block_item.image %}m-block__with_image{% else %}m-block__without_image{% endif %}
+	'
+	{% if block_item.bg %}style='background-image: url({{ block_item.bg.url }})'{% endif %}
+	id='{{ block_item.slug }}'
+	data-id='{{ block_item.id }}'
+>
+{% endspaceless %}
+	<div class='b-block__info'>
+		{% if block_item.title %}
+			{% if forloop.first %}
+				<h1 class='b-block__title'>{{ block_item.title|safe }}</h1>
+			{% else %}
+				<h2 class='b-block__title'>{{ block_item.title|safe }}</h2>
+			{% endif %}
+		{% endif %}
+
+		{% if block_item.description %}
+			<h3 class='b-block__description'>{{ block_item.description|safe }}</h3>
+		{% endif %}
+
+		{% if block_item.text %}
+		<div class='b-block__text'>
+			{% render block_item.text %}
+		</div>
+		{% endif %}
+	</div>
+	{% if block_item.image %}
+		<img class='b-block__img' src='{{ block_item.image.url }}' alt='{{ block_item.title }}'>
+	{% endif %}
+
+
+	{% if block_item.subblocks %}
+		<div class='b-subblocks'>
+		{% for subblock in subblocks %}
+			<div class='b-subblock m-subblock_{{ subblock.id }}'>
+				{% if subblock.image %}
+					<img src='{{ subblock.image.url }}' alt='{{ subblock.title }}' class='b-subblock__img'>
+				{% endif %}
+				<div class='b-subblock__content'>
+					<h3 class='b-subblock__title'>{{ subblock.title|safe }}</h3>
+					{% if subblock.sub_title %}
+						<big class='b-subblock__sub_title'>{{ subblock.sub_title|safe }}</big>
+					{% endif %}
+					{% if subblock.description %}
+						<div class='b-subblock__description'>{% render subblock.description %}</div>
+					{% endif %}
+				</div>
+			</div><!-- b-subblock -->
+
+		{% endfor %}
+		</div><!-- b-subblocks -->
+	{% endif %}
+
+</section><!-- b-block --><!-- m-{{ block_item.slug }} -->

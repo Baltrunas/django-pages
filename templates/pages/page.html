@@ -1,14 +1,68 @@
 {% extends 'base.html' %}
 
 {% load render %}
+{% load thumbnail %}
+{% load tags %}
 
+<!-- b-page -->
 {% block content %}
 
+<div class='b-page m-app_pages m-template_pages-default'>
+	{{ page.group }}
+
 	<!-- render all blocks -->
-	{% for block_item in page.blocks.all %}
+	{% for block_item in page.group.content %}
 		{% if block_item.public %}
-			{% include 'pages/block.html' %}
+			{% include 'pages/__blocks/block.html' %}
 		{% endif %}
 	{% endfor %}
 
+
+
+	<h1 class='b-page__header'>{{ page.header|safe }}</h1>
+	{% if page.intro %}
+		<div class='b-page__intro'>{{ page.intro|safe }}</div>
+	{% endif %}
+	{% if page.img %}
+		<img src='{{ page.img.url }}' alt='{{ page.title }}' class='b-page__img'>
+	{% endif %}
+	<div class='b-page__text'>{% render page.text %}</div>
+
+	{% for item in pages_list %}
+		<div class='b-page__child'>
+			{% thumbnail item.img "300x250" crop="center" as im %}
+				<img src='{{ im.url }}' class='b-page__child__img' alt='{{ item.header }}'>
+			{% empty %}
+				<img src='/static/pages/img/no_photo.png' class='b-page__child__img' alt='{{ item.header }}' title='{{ item.header }}' />
+			{% endthumbnail %}
+			<a href='{{ item.get_absolute_url }}' class='b-page__child__title'>{{ item.header }}</a>
+			<div class='b-page__child__date'>{{ item.created_at|date:"Y.m.d H:i" }}</div>
+			<div class='b-page__child__intro'>{{ item.intro|safe }}</div>
+		</div>
+	{% endfor %}
+
+	{% include "pages/__blocks/paginator.html" %}
+
+</div>
+
 {% endblock %}
+<!-- end b-page -->
+
+<!-- Tags -->
+{% block aside %}
+	<div class="b-tags">
+		<h3 class="b-tags__title">Tags</h3>
+		{% tags as tags %}
+		<ul class='b-tags__items'>
+			{% for tag in tags %}
+				<li class='b-tag__item'>
+					<a href="{{ tag.get_absolute_url }}" class='b-tag__item__link'>
+						{{ tag.name }}
+					</a>
+					<i class="b-tag__item__count">({{ tag.pages_count }})</i>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
+<!-- end Tags -->
