@@ -34,21 +34,20 @@
 		<img class='b-block__img' src='{{ block_item.image.url }}' alt='{{ block_item.title }}'>
 	{% endif %}
 
-
 	{% if block_item.subblocks %}
 		<div class='b-subblocks'>
-		{% for subblock in subblocks %}
+		{% for subblock in block_item.subblocks %}
 			<div class='b-subblock m-subblock_{{ subblock.id }}'>
 				{% if subblock.image %}
 					<img src='{{ subblock.image.url }}' alt='{{ subblock.title }}' class='b-subblock__img'>
 				{% endif %}
 				<div class='b-subblock__content'>
 					<h3 class='b-subblock__title'>{{ subblock.title|safe }}</h3>
-					{% if subblock.sub_title %}
-						<big class='b-subblock__sub_title'>{{ subblock.sub_title|safe }}</big>
-					{% endif %}
 					{% if subblock.description %}
-						<div class='b-subblock__description'>{% render subblock.description %}</div>
+						<big class='b-subblock__description'>{{ subblock.description|safe }}</big>
+					{% endif %}
+					{% if subblock.text %}
+						<div class='b-subblock__text'>{% render subblock.text %}</div>
 					{% endif %}
 				</div>
 			</div><!-- b-subblock -->
