@@ -5,6 +5,7 @@ from modeltranslation.translator import TranslationOptions
 from .models import Tag
 from .models import Page
 from .models import Block
+from .models import SubBlock
 
 
 class TagTranslationOptions(TranslationOptions):
@@ -23,3 +24,9 @@ class BlockTranslationOptions(TranslationOptions):
 	fields = ['title', 'description', 'text']
 
 translator.register(Block, BlockTranslationOptions)
+
+
+class SubBlockTranslationOptions(TranslationOptions):
+	fields = ['title', 'description', 'text']
+
+translator.register(SubBlock, SubBlockTranslationOptions)

@@ -66,7 +66,7 @@ class Page(models.Model):
 	slug = models.CharField(verbose_name=_('Slug'), max_length=256, default='#')
 	url = models.CharField(verbose_name=_('URL'), max_length=1024, editable=False)
 
-	blocks = models.ManyToManyField('Block', verbose_name=_('Blocks'), blank=True)
+	# blocks = models.ManyToManyField('Block', verbose_name=_('Blocks'), blank=True, related_name='pages')
 
 	main = models.BooleanField(verbose_name=_('Main'), default=False)
 	public = models.BooleanField(verbose_name=_('Public'), default=True)
@@ -175,18 +175,16 @@ class Block(models.Model):
 	image = models.FileField(_('Image'), upload_to=upload_to, blank=True, null=True)
 	bg = models.FileField(_('Background'), upload_to=upload_to, blank=True, null=True)
 
-	parent = models.ForeignKey('self', verbose_name=_('Parent'), null=True, blank=True, related_name='all_subblocks')
 	order = models.PositiveIntegerField(_('Sort ordering'), default=500)
 
-	# template = models.CharField(_('Template'), max_length=124, blank=True, null=True)
+	pages = models.ManyToManyField(Page, verbose_name=_('Pages'), related_name='blocks', blank=True)
+
+	template = models.CharField(_('Template'), max_length=124, blank=True, null=True)
 	group = models.CharField(_('Area'), max_length=64, default='content')
 
 	public = models.BooleanField(_('Public'), default=True)
 	created_at = models.DateTimeField(_('Created At'), auto_now_add=True)
 	updated_at = models.DateTimeField(_('Updated At'), auto_now=True)
-
-	# def dependent_from(self):
-		# return self.block
 
 	def subblocks(self):
 		return self.all_subblocks.filter(public=True)
@@ -201,6 +199,37 @@ class Block(models.Model):
 		ordering = ['order']
 		verbose_name = _('Block')
 		verbose_name_plural = _('Blocks')
+
+
+class SubBlock(models.Model):
+	title = models.CharField(_('Title'), max_length=256, blank=True, null=True)
+	description = models.CharField(_('Description'), max_length=2048, blank=True, null=True)
+	text = models.TextField(_('Text'), blank=True, null=True)
+	image = models.FileField(_('Image'), upload_to=upload_to, blank=True, null=True)
+
+	order = models.PositiveIntegerField(_('Sort ordering'), default=500)
+
+
+	block = models.ForeignKey(Block, verbose_name=_('Block'), related_name='all_subblocks')
+
+	public = models.BooleanField(_('Public'), default=True)
+	created_at = models.DateTimeField(_('Created At'), auto_now_add=True)
+	updated_at = models.DateTimeField(_('Updated At'), auto_now=True)
+
+	def dependent_from(self):
+		return self.block
+
+	def __unicode__(self):
+		return self.title
+
+	class Meta:
+		ordering = ['order']
+		verbose_name = _('Sub block')
+		verbose_name_plural = _('Sub blocks')
+
+
+
+
 
 
 from django.contrib.contenttypes.models import ContentType

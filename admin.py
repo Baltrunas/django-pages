@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from .models import Tag
 from .models import Page
 from .models import Block
+from .models import SubBlock
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -16,23 +17,7 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Tag, TagAdmin)
 
 
-
-from django import forms
-from django.db.models import Q
-
-
-class PageForm(forms.ModelForm):
-	class Meta:
-		model = Page
-		fields = '__all__'
-
-	def __init__(self, *args, **kwargs):
-		super(PageForm, self).__init__(*args, **kwargs)
-		self.fields['blocks'].queryset = Block.objects.filter(parent__isnull=True)
-
-
 class PageAdmin(admin.ModelAdmin):
-	form = PageForm
 	list_display = ['__unicode__', 'slug', 'url', 'order', 'public', 'main']
 	search_fields = ['title', 'slug', 'url', 'public', 'text']
 	list_filter = ['public', 'main', 'sites', 'parent']
@@ -43,23 +28,17 @@ class PageAdmin(admin.ModelAdmin):
 admin.site.register(Page, PageAdmin)
 
 
-class BlockForm(forms.ModelForm):
-	class Meta:
-		model = Block
-		exclude = ['parent']
-
-class BlockInline(admin.StackedInline):
-	model = Block
+class SubBlockInline(admin.StackedInline):
+	model = SubBlock
 	verbose_name = _('Sub block')
 	verbose_name_plural = _('Sub blocks')
 	extra = 0
 
 class BlockAdmin(admin.ModelAdmin):
-	form = BlockForm
-	list_display = ['title', 'slug', 'order', 'public']
+	list_display = ['__unicode__', 'slug', 'order', 'public']
 	search_fields = ['title', 'slug', 'order', 'public']
-	list_filter = ['public']
+	list_filter = ['public', 'pages', 'group']
 	list_editable = ['public', 'order']
-	inlines = [BlockInline]
+	inlines = [SubBlockInline]
 
 admin.site.register(Block, BlockAdmin)
