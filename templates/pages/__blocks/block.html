@@ -11,6 +11,7 @@
 	data-id='{{ block_item.id }}'
 >
 {% endspaceless %}
+<div class='b-block__wrapper'>
 	<div class='b-block__info'>
 		{% if block_item.title %}
 			{% if forloop.first %}
@@ -55,5 +56,6 @@
 		{% endfor %}
 		</div><!-- b-subblocks -->
 	{% endif %}
+</div><!-- b-block__wrapper -->
 
 </section><!-- b-block --><!-- m-{{ block_item.slug }} -->
